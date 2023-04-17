@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StudentsClient.Views.TestsPage"
+             xmlns:models="clr-namespace:Server.Models;assembly=Server"
              xmlns:viewModels="clr-namespace:StudentsClient.ViewModels"
              Title="TestsPage">
 
-    <ContentPage.BindingContext>
-        <viewModels:TestsPageViewModel />
-    </ContentPage.BindingContext>
+    <!--<ContentPage.BindingContext>
+        <viewModels:TestsPageViewModel/>
+    </ContentPage.BindingContext>-->
 
     <VerticalStackLayout>
         <Label 
@@ -15,11 +17,11 @@
             Text="{Binding Label}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <ScrollView BindableLayout.ItemsSource="{Binding _tests}" IsVisible="true">
-            <!--<StackLayout >-->
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout Orientation="Horizontal" IsVisible="true">
+        <VerticalStackLayout>
+            <ListView ItemsSource="{Binding _tests}" IsVisible="true" x:Name="listview" SelectedItem="{Binding SelectedTest}" SelectionMode="Single" >
+                <ListView.ItemTemplate>
+                    <DataTemplate >
+                        <ViewCell>
                             <Border>
                                 <Label Text="{Binding Name}"
                                FontSize="24"
@@ -30,10 +32,11 @@
                                 Padding="0"
                                VerticalOptions="Center" />
                             </Border>
-                        </StackLayout>
+                        </ViewCell>
                     </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            <!--</StackLayout>-->
-        </ScrollView>
+                </ListView.ItemTemplate>
+            </ListView>
+        </VerticalStackLayout>
+        <Button Text="{Binding ButtonText}" Command="{Binding StartTestCommand}"></Button>
     </VerticalStackLayout>
 </ContentPage>
